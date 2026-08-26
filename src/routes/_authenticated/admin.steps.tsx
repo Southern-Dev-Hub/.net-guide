@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Plus, Save, Trash2 } from "lucide-react";
+import { FileDown, Plus, Save, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import {
   CODE_LANGUAGES,
@@ -14,6 +14,7 @@ import {
   type CodeBlock,
   type LearningStep,
 } from "@/lib/api";
+import { exportStepToPdf, exportStepsToPdf } from "@/lib/step-pdf";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { ImageUpload } from "@/components/image-upload";
 import { Button } from "@/components/ui/button";
@@ -181,9 +182,23 @@ function StepsAdmin() {
               </SelectContent>
             </Select>
           </div>
+          <Button
+            variant="outline"
+            onClick={() => {
+              try {
+                exportStepsToPdf(steps, tabs.find((t) => t.id === activeTabId)?.title);
+              } catch (e) {
+                toast.error((e as Error).message);
+              }
+            }}
+            disabled={steps.length === 0}
+          >
+            <FileDown className="size-4" /> Download all steps as PDF
+          </Button>
           <Button onClick={() => create.mutate()} disabled={!activeTabId || create.isPending}>
             <Plus className="size-4" /> New step
           </Button>
+
         </div>
       </header>
 
@@ -403,9 +418,23 @@ function StepsAdmin() {
               >
                 <Trash2 className="size-4" /> Delete step
               </Button>
-              <Button onClick={() => save.mutate(editing)} disabled={save.isPending}>
-                <Save className="size-4" /> Save changes
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    try {
+                      exportStepToPdf(editing);
+                    } catch (e) {
+                      toast.error((e as Error).message);
+                    }
+                  }}
+                >
+                  <FileDown className="size-4" /> Download PDF
+                </Button>
+                <Button onClick={() => save.mutate(editing)} disabled={save.isPending}>
+                  <Save className="size-4" /> Save changes
+                </Button>
+              </div>
             </div>
           </div>
         ) : (

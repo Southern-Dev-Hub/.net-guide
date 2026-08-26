@@ -91,7 +91,10 @@ export async function fetchSteps(tabId: string): Promise<LearningStep[]> {
 
 export async function fetchAllSteps(): Promise<LearningStep[]> {
   const rows = unwrap(
-    await db().from("learning_steps").select("*").order("display_order", { ascending: true }),
+    await db()
+      .from("learning_steps")
+      .select("*")
+      .order("display_order", { ascending: true }),
   ) as LearningStep[];
   return rows.map((r) => ({ ...r, code_blocks: normalizeBlocks(r.code_blocks) }));
 }

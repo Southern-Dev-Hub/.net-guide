@@ -96,10 +96,10 @@ function AuthPage() {
           </Button>
         </form>
 
-        <p className="mt-4 rounded-lg bg-muted p-3 text-xs leading-relaxed text-muted-foreground">
+        {/* <p className="mt-4 rounded-lg bg-muted p-3 text-xs leading-relaxed text-muted-foreground">
           Default credentials are pre-filled: <strong>admin@dotnetguide.local</strong> /{" "}
           <strong>admin123</strong>. Change the password after your first sign in.
-        </p>
+        </p> */}
       </div>
     </div>
   );

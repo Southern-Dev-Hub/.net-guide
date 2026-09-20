@@ -126,8 +126,11 @@ function PortalPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-primary">
             {activeTab?.title ?? "Learning path"}
           </p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          {/* <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Build production-ready {activeTab?.title ?? ".NET"} services
+          </h1> */}
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            {activeTab?.title ?? ".NET"} services
           </h1>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
             Follow each step in order. Every step includes the exact commands, annotated code
